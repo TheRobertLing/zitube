@@ -1,29 +1,34 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Toolbar from '@/volt/Toolbar.vue'
+import SecondaryButton from '@/volt/SecondaryButton.vue'
+</script>
 
 <template>
-  <footer class="rounded-lg shadow-sm m-4 ">
-    <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
-      <span class="text-sm sm:text-center"
-        >© 2023 ZiTube. All Rights
-        Reserved.
-      </span>
-      <ul
-        class="flex flex-wrap items-center mt-3 text-sm font-medium sm:mt-0"
-      >
-        <li>
-          <a href="#" class="hover:underline me-4 md:me-6">About</a>
-        </li>
-        <li>
-          <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-        </li>
-        <li>
-          <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-        </li>
-        <li>
-          <a href="#" class="hover:underline">Contact</a>
-        </li>
-      </ul>
-    </div>
+  <footer>
+    <Toolbar>
+      <template #start>
+        <span class="text-sm sm:text-center"
+          >© {{ new Date().getFullYear() }} ZiTube. All Rights Reserved.
+        </span>
+      </template>
+
+      <template #end>
+        <ul class="flex flex-wrap items-center mt-3 text-sm font-medium sm:mt-0">
+          <li>
+            
+            <SecondaryButton label="About" variant="text"> </SecondaryButton>
+          </li>
+          <li>
+            <SecondaryButton label="Contact" variant="text"> </SecondaryButton>
+          </li>
+          <li>
+            <a href="https://github.com/TheRobertLing/zitube" target="_blank">
+              <SecondaryButton label="Github" variant="text"> </SecondaryButton>
+            </a>
+          </li>
+        </ul>
+      </template>
+    </Toolbar>
   </footer>
 </template>
 
