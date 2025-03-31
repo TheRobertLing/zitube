@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import Toolbar from '@/volt/Toolbar.vue'
-import Button from '@/volt/Button.vue'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
-import InputText from '@/volt/InputText.vue'
+import Toolbar from 'primevue/toolbar'
+import Button from 'primevue/button'
+import IconField from 'primevue/iconfield'
+import InputIcon from 'primevue/inputicon'
+import InputText from 'primevue/inputtext'
+
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const userSearch = ref<string>('')
@@ -37,57 +39,41 @@ onBeforeUnmount(() => {
     </template>
 
     <template #center>
-      <div class="relative hidden sm:block max-w-4xl grow">
-        <i
-          class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none start-3 z-1"
-        ></i>
-        <InputText
-          type="text"
-          v-model="userSearch"
-          variant="filled"
-          placeholder="Search"
-          pt:root="ps-10 w-full"
-        />
-      </div>
+      <IconField pt:root="hidden sm:block max-w-2xl grow">
+        <InputIcon class="pi pi-search" />
+        <InputText v-model="userSearch" placeholder="Search" variant="filled" fluid/>
+      </IconField>
     </template>
 
     <template #end>
-      <SecondaryButton
+      <Button
+        pt:root="sm:!hidden"
         icon="pi pi-search"
         variant="text"
         rounded
-        pt:root="sm:hidden"
+        aria-label="Search"
         @click="openMobileSearch"
-      />
-      <SecondaryButton label="Log In" variant="text" />
-      <SecondaryButton label="Sign Up" variant="text" />
+        severity="secondary"
+      >
+      </Button>
+      <Button label="Log In" variant="text" severity="secondary"></Button>
+      <Button label="Sign Up" variant="text" severity="secondary"></Button>
     </template>
   </Toolbar>
+
   <Toolbar v-show="showMobileSearch" pt:center="grow justify-center">
     <template #start>
-      <SecondaryButton
-        icon="pi pi-arrow-left"
-        variant="text"
-        rounded
-        @click="closeMobileSearch"
-      />
+      <Button icon="pi pi-arrow-left" variant="text" rounded @click="closeMobileSearch"></Button>
     </template>
 
     <template #center>
-      <div class="relative max-w-4xl grow">
-        <i
-          class="pi pi-search absolute top-1/2 -mt-2 text-surface-400 leading-none start-3 z-1"
-        ></i>
-        <InputText
-          type="text"
-          v-model="userSearch"
-          variant="filled"
-          placeholder="Search"
-          pt:root="ps-10 w-full"
-        />
-      </div>
+      <IconField  pt:root="grow">
+        <InputIcon class="pi pi-search" />
+        <InputText v-model="userSearch" placeholder="Search" variant="filled" fluid/>
+      </IconField>
     </template>
   </Toolbar>
 </template>
 
-<style scoped></style>
+<style scoped>
+</style>
