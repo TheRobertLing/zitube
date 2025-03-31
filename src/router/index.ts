@@ -1,9 +1,16 @@
+import AboutView from '@/views/AboutView.vue'
+import HomeView from '@/views/HomeView.vue'
+import LoginView from '@/views/LoginView.vue'
+import NotFoundView from '@/views/NotFoundView.vue'
+import ProfileView from '@/views/ProfileView.vue'
+import SearchView from '@/views/SearchView.vue'
+import SignUpView from '@/views/SignUpView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // Public
     {
       path: '/',
       name: 'home',
@@ -12,10 +19,46 @@ const router = createRouter({
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import('../views/AboutView.vue'),
+      component: AboutView,
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: SearchView,
+    },
+    {
+      path: '/video/:id',
+      name: 'video',
+      component: HomeView,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView,
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: SignUpView ,
+    },
+
+    // Protected
+    {
+      path: '/profile',
+      name: 'profile',
+      component: ProfileView,
+    },
+    {
+      path: '/video/:id',
+      name: 'video',
+      component: HomeView,
+    },
+
+    // Page Not Found
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'notfound',
+      component: NotFoundView,
     },
   ],
 })
