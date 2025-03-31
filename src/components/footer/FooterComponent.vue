@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Toolbar from '@/volt/Toolbar.vue'
-import SecondaryButton from '@/volt/SecondaryButton.vue'
+import Toolbar from 'primevue/toolbar'
+import Button from 'primevue/button'
 </script>
 
 <template>
@@ -15,15 +15,14 @@ import SecondaryButton from '@/volt/SecondaryButton.vue'
       <template #end>
         <ul class="flex flex-wrap items-center mt-3 text-sm font-medium sm:mt-0">
           <li>
-            
-            <SecondaryButton label="About" variant="text"> </SecondaryButton>
+            <Button label="About" variant="text" severity="secondary"> </Button>
           </li>
           <li>
-            <SecondaryButton label="Contact" variant="text"> </SecondaryButton>
+            <Button label="Contact" variant="text" severity="secondary"> </Button>
           </li>
           <li>
             <a href="https://github.com/TheRobertLing/zitube" target="_blank">
-              <SecondaryButton label="Github" variant="text"> </SecondaryButton>
+              <Button label="Github" variant="text" severity="secondary"> </Button>
             </a>
           </li>
         </ul>
