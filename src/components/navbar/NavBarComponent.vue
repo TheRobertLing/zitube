@@ -31,7 +31,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Toolbar v-show="!showMobileSearch" pt:center="grow justify-center" >
+  <Toolbar v-show="!showMobileSearch" pt:center="grow justify-center" pt:root="sticky top-0">
     <template #start>
       <Button label="ZiTube" variant="text"></Button>
     </template>
