@@ -2,8 +2,6 @@
 import { RouterView } from 'vue-router';
 import NavBarComponent from './components/navbar/NavBarComponent.vue';
 import FooterComponent from './components/footer/FooterComponent.vue';
-
-
 </script>
 
 <template>
