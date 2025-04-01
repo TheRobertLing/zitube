@@ -5,6 +5,7 @@ import NotFoundView from '@/views/NotFoundView.vue'
 import ProfileView from '@/views/ProfileView.vue'
 import SearchView from '@/views/SearchView.vue'
 import SignUpView from '@/views/SignUpView.vue'
+import VideoView from '@/views/VideoView.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -29,7 +30,7 @@ const router = createRouter({
     {
       path: '/video/:id',
       name: 'video',
-      component: HomeView,
+      component: VideoView,
     },
     {
       path: '/login',
@@ -47,11 +48,6 @@ const router = createRouter({
       path: '/profile',
       name: 'profile',
       component: ProfileView,
-    },
-    {
-      path: '/video/:id',
-      name: 'video',
-      component: HomeView,
     },
 
     // Page Not Found
