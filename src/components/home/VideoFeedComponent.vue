@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from 'vue'
 import VideoCardComponent from './VideoCardComponent.vue'
 import VideoCardSkeletonComponent from './VideoCardSkeletonComponent.vue'
 import type { VideoCardInterface } from '@/types/VideoCardInterface'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
 
 const props = defineProps<{
   category: string
