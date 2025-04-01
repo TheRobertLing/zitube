@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import Toolbar from 'primevue/toolbar'
-import Button from 'primevue/button'
-import IconField from 'primevue/iconfield'
-import InputIcon from 'primevue/inputicon'
-import InputText from 'primevue/inputtext'
-
+import { Toolbar, Button, IconField, InputIcon, InputText } from 'primevue'
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 
 const userSearch = ref<string>('')
@@ -33,21 +28,21 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <Toolbar v-show="!showMobileSearch" pt:center="grow justify-center" pt:root="sticky top-0">
+  <Toolbar v-show="!showMobileSearch" pt:center="grow justify-center" pt:root="sticky top-0 z-10">
     <template #start>
       <Button label="ZiTube" variant="text"></Button>
     </template>
 
     <template #center>
-      <IconField pt:root="hidden sm:block max-w-2xl grow">
+      <IconField pt:root="hidden md:block max-w-2xl grow">
         <InputIcon class="pi pi-search" />
-        <InputText v-model="userSearch" placeholder="Search" variant="filled" fluid/>
+        <InputText v-model="userSearch" placeholder="Search" variant="filled" fluid />
       </IconField>
     </template>
 
     <template #end>
       <Button
-        pt:root="sm:!hidden"
+        pt:root="md:!hidden"
         icon="pi pi-search"
         variant="text"
         rounded
@@ -67,13 +62,12 @@ onBeforeUnmount(() => {
     </template>
 
     <template #center>
-      <IconField  pt:root="grow">
+      <IconField pt:root="grow">
         <InputIcon class="pi pi-search" />
-        <InputText v-model="userSearch" placeholder="Search" variant="filled" fluid/>
+        <InputText v-model="userSearch" placeholder="Search" variant="filled" fluid />
       </IconField>
     </template>
   </Toolbar>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
