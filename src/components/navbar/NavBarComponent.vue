@@ -22,7 +22,7 @@ const handleResize = (): void => {
 }
 
 const handleSearch = (e: KeyboardEvent): void => {
-  if (e.key === 'Enter') {
+  if (e.key === 'Enter' && userSearch.value.trim()) {
     router.push({ name: 'search', query: { search: userSearch.value } })
     console.log(e)
     if (focusDiv.value) {
