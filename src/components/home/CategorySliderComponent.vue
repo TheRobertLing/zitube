@@ -2,48 +2,30 @@
 import { Button, Chip } from 'primevue'
 import { onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 
-// Stub replace with user preferences later
-const categories = [
-  'All',
-  'Recently Uploaded',
-  'Education',
-  'Gaming',
-  'Sports',
-  'Lifestyle',
-  'Music',
-  'News',
-  'Movies',
-  'Tech',
-  'Comedy',
-  'Travel',
-  'Food',
-  'Fashion',
-  'Health',
-  'DIY',
-  'Finance',
-  'Animation',
-  'Documentary',
-  'Vlogs',
-  'History',
-  'Science',
-  'Art',
-  'Podcasts',
-  'Nature',
-  'Reviews',
-  'Live',
-  'Shorts',
-  'Motivation',
-  'Animals',
-  'Cars',
-]
+/**
+ * =============================================================================
+ *
+ * PROPS AND EMITS
+ *
+ * =============================================================================
+ */
 
 defineProps<{
-  category: string
+  selectedCategory: string // The currently selected category
+  categories: string[] // Defines the categories of videos a user sees
 }>()
 
 const emit = defineEmits<{
   chipSelect: [value: string]
 }>()
+
+/**
+ * =============================================================================
+ *
+ * VARIABLES AND OTHER DATA
+ *
+ * =============================================================================
+ */
 
 const scrollContainer = useTemplateRef('scrollContainer')
 
@@ -51,6 +33,39 @@ const leftOverlayActive = ref<boolean>(false)
 const rightOverlayActive = ref<boolean>(false)
 
 const scrollAmount: number = 500
+
+const resizeObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+  for (const entry of entries) {
+    const el = entry.target as HTMLElement
+    updateOverlay(el)
+  }
+})
+
+/**
+ * =============================================================================
+ *
+ * FUNCTIONS
+ *
+ * =============================================================================
+ */
+
+const handleLeftClick = () => {
+  if (scrollContainer.value) {
+    scrollContainer.value.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+  }
+}
+
+const handleRightClick = () => {
+  if (scrollContainer.value) {
+    scrollContainer.value.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+  }
+}
+
+const handleScroll = () => {
+  if (scrollContainer.value) {
+    updateOverlay(scrollContainer.value)
+  }
+}
 
 const updateOverlay = (el: HTMLElement) => {
   console.log(el.scrollWidth)
@@ -71,48 +86,31 @@ const updateOverlay = (el: HTMLElement) => {
   }
 }
 
-const scrollObserver = new ResizeObserver((entries: ResizeObserverEntry[]) => {
-  for (const entry of entries) {
-    const el = entry.target as HTMLElement
-    updateOverlay(el)
-  }
-})
+/**
+ * =============================================================================
+ *
+ * LIFECYCLE HOOKS
+ *
+ * =============================================================================
+ */
 
-const handleLeftClick = () => {
-  if (scrollContainer.value) {
-    scrollContainer.value.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
-  }
-}
-
-const handleRightClick = () => {
-  if (scrollContainer.value) {
-    scrollContainer.value.scrollBy({ left: scrollAmount, behavior: 'smooth' })
-  }
-}
-
-const handleScroll = () => {
+onMounted(async () => {
   if (scrollContainer.value) {
     updateOverlay(scrollContainer.value)
-  }
-}
-
-onMounted(() => {
-  if (scrollContainer.value) {
-    updateOverlay(scrollContainer.value)
-    scrollObserver.observe(scrollContainer.value)
+    resizeObserver.observe(scrollContainer.value)
   }
 })
 
 onBeforeUnmount(() => {
-  if (scrollObserver && scrollContainer.value) {
-    scrollObserver.unobserve(scrollContainer.value)
+  if (resizeObserver && scrollContainer.value) {
+    resizeObserver.unobserve(scrollContainer.value)
   }
 })
 </script>
 
 <template>
   <div class="relative w-full mt-4">
-    <!-- Left Overlay -->
+    <!-- Left Overlay Arrow -->
     <div
       ref="leftOverlay"
       class="absolute left-0 top-0 bottom-0 flex justify-start items-center aspect-2/1"
@@ -137,7 +135,7 @@ onBeforeUnmount(() => {
     <!-- Scroll Container -->
     <div
       ref="scrollContainer"
-      class="flex flex-nowrap overflow-x-auto whitespace-nowrap scrollbar-hide gap-2 px-2 py-2"
+      class="flex flex-nowrap overflow-x-auto whitespace-nowrap scrollbar-hide gap-2 m-4"
       @scroll="handleScroll"
     >
       <Chip
@@ -145,12 +143,12 @@ onBeforeUnmount(() => {
         :label="item"
         :key="index"
         pt:root="hover:cursor-pointer transition"
-        :class="{ selected: item === category }"
+        :class="{ selected: item === selectedCategory }"
         @click="emit('chipSelect', item)"
       />
     </div>
 
-    <!-- Right overlay -->
+    <!-- Right overlay Arrow -->
     <div
       ref="rightOverlay"
       class="absolute right-0 top-0 bottom-0 flex justify-end items-center aspect-2/1"
@@ -185,6 +183,6 @@ onBeforeUnmount(() => {
 }
 
 .selected {
-  background-color: var(--p-emerald-600);
+  background-color: var(--p-emerald-400);
 }
 </style>
