@@ -24,16 +24,16 @@ const handleResize = (): void => {
 const handleSearch = (e: KeyboardEvent): void => {
   if (e.key === 'Enter' && userSearch.value.trim()) {
     router.push({ name: 'search', query: { search: userSearch.value } })
-    console.log(e)
     if (focusDiv.value) {
-      console.log('This worked')
       focusDiv.value.focus()
     }
   }
 }
 
 const handleClick = (): void => {
-  router.push({ name: 'search', query: { search: userSearch.value } })
+  if (userSearch.value.trim()) {
+    router.push({ name: 'search', query: { search: userSearch.value } })
+  }
 }
 
 onMounted(() => {
