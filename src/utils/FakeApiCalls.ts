@@ -35,10 +35,10 @@ const getCategoriesFakeAPI = async (): Promise<string[]> => {
 }
 
 // Mock the number of times videos can be fetched before running out
-let fetchableTimes: number = 10
+let fetchableTimes: number = 3
 
 /**
- * Mock fetching video data
+ * Mock fetching video data for the home page and search page for now
  *
  * @returns
  */
@@ -297,18 +297,16 @@ const getVideoDataFakeAPI = async (): Promise<VideoCardInterface[]> => {
   })
 }
 
-const getVideoDataForDifferentCategory = async (): Promise<VideoCardInterface[]> => {
+/**
+ * Mock fetching video data when switching categories on the home page
+ *
+ * @returns
+ */
+const getVideoDataForDifferentCategoryFakeAPI = async (): Promise<VideoCardInterface[]> => {
   // Reset fetchables
-  fetchableTimes = 10
+  fetchableTimes = 3
 
   return new Promise((resolve) => {
-    if (fetchableTimes <= 0) {
-      resolve([])
-      return
-    }
-
-    fetchableTimes--
-
     setTimeout(() => {
       const videoData: VideoCardInterface[] = [
         {
@@ -555,4 +553,4 @@ const getVideoDataForDifferentCategory = async (): Promise<VideoCardInterface[]>
   })
 }
 
-export { getCategoriesFakeAPI, getVideoDataFakeAPI, getVideoDataForDifferentCategory }
+export { getCategoriesFakeAPI, getVideoDataFakeAPI, getVideoDataForDifferentCategoryFakeAPI }
