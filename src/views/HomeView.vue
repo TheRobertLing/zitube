@@ -2,7 +2,11 @@
 import { onBeforeUnmount, onMounted, ref, useTemplateRef } from 'vue'
 import CategorySliderComponent from '@/components/home/CategorySliderComponent.vue'
 import VideoFeedComponent from '@/components/home/VideoFeedComponent.vue'
-import { getCategoriesFakeAPI, getVideoDataFakeAPI, getVideoDataForDifferentCategory } from '@/utils/FakeApiCalls'
+import {
+  getCategoriesFakeAPI,
+  getVideoDataFakeAPI,
+  getVideoDataForDifferentCategoryFakeAPI,
+} from '@/utils/FakeApiCalls'
 import type { VideoCardInterface } from '@/types/VideoCardInterface'
 import { ProgressSpinner, Skeleton } from 'primevue'
 
@@ -40,7 +44,7 @@ const videoData = ref<VideoCardInterface[]>([])
  * =============================================================================
  */
 
-const handleChipSelect = (chip: string): void => {
+const handleCategoryChange = (chip: string): void => {
   selectedCategory.value = chip
   fetchVideoDataForDifferentCategory()
 }
@@ -70,7 +74,15 @@ const fetchMoreVideoData = async (): Promise<void> => {
 
 const fetchVideoDataForDifferentCategory = async (): Promise<void> => {
   isVideoFeedDataLoading.value = true
-  videoData.value = await getVideoDataForDifferentCategory()
+  isAtEndOfFeed.value = false
+  const extraVideoData: VideoCardInterface[] = await getVideoDataForDifferentCategoryFakeAPI()
+
+  if (extraVideoData.length === 0) {
+    isAtEndOfFeed.value = true
+  } else {
+    videoData.value = extraVideoData
+  }
+
   isVideoFeedDataLoading.value = false
 }
 
@@ -81,6 +93,7 @@ const fetchVideoDataForDifferentCategory = async (): Promise<void> => {
  *
  * =============================================================================
  */
+
 onMounted(async () => {
   fetchCategoryData()
   fetchVideoData()
@@ -108,7 +121,7 @@ onBeforeUnmount(() => {
   <CategorySliderComponent
     :selectedCategory="selectedCategory"
     :categories="categories"
-    @chipSelect="handleChipSelect"
+    @category-change="handleCategoryChange"
     v-else
   />
 
