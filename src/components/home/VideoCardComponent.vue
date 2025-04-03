@@ -23,9 +23,9 @@ defineProps<{
     @click="emit('clicked')"
   >
     <!-- Thumbnail + Duration + Level Tag -->
-    <div class="relative aspect-video bg-gray-300 dark:bg-neutral-700">
+    <div class="relative aspect-video">
       <img
-        src="@/assets/placeholders/placeholder.jpg"
+        :src="thumbnail || '@/assets/placeholders/placeholder.jpg'"
         alt="Video thumbnail"
         class="w-full h-full object-cover"
         loading="lazy"
@@ -39,35 +39,32 @@ defineProps<{
     </div>
 
     <!-- Info Section -->
-    <div class="flex gap-3 p-3">
-      <div class="flex flex-col gap-1 overflow-hidden">
-        <!-- Video Title -->
-        <div :title="title" class="font-medium text-md line-clamp-2 break-words leading-snug">
-          {{ title }}
-        </div>
+    <div class="flex flex-col gap-3 p-3 overflow-hidden">
+      <!-- Video Title -->
+      <div :title="title" class="font-medium text-md line-clamp-2 break-words leading-snug">
+        {{ title }}
+      </div>
 
-        <!-- Meta info (views, date, level) -->
-        <div class="text-xs text-neutral-500 dark:text-neutral-400">
-          <span>{{ channelName || 'Channel Name' }}</span>
-          <br />
-          <span>{{ views }}</span> • <span>{{ releaseTime }}</span>
-        </div>
+      <!-- Meta info (views, date, level) -->
+      <div class="text-xs text-neutral-500 dark:text-neutral-400">
+        <span>{{ channelName || 'Channel Name' }}</span>
+        <br />
+        <span>{{ views }}</span> • <span>{{ releaseTime }}</span>
+      </div>
 
-        <!-- Custom Tags Section -->
-        <div v-if="tags" class="flex flex-wrap gap-2 mt-2">
-          <Tag
-            v-for="(tag, index) in tags"
-            :key="index"
-            :value="tag"
-            severity="secondary"
-            rounded
-            class="text-xs"
-          />
-        </div>
+      <!-- Custom Tags Section -->
+      <div v-if="tags" class="flex flex-wrap gap-2 mt-2">
+        <Tag
+          v-for="(tag, index) in tags"
+          :key="index"
+          :value="tag"
+          severity="secondary"
+          rounded
+          class="text-xs"
+        />
       </div>
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
