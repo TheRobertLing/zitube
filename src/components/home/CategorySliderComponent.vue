@@ -16,7 +16,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits<{
-  chipSelect: [value: string]
+  categoryChange: [value: string]
 }>()
 
 /**
@@ -144,7 +144,7 @@ onBeforeUnmount(() => {
         :key="index"
         pt:root="hover:cursor-pointer transition"
         :class="{ selected: item === selectedCategory }"
-        @click="emit('chipSelect', item)"
+        @click="emit('categoryChange', item)"
       />
     </div>
 
